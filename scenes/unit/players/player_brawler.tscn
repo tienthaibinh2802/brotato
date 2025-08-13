@@ -7,8 +7,5 @@
 [node name="PlayerBrawler" instance=ExtResource("1_t1ilm")]
 stats = ExtResource("2_k813p")
 
-[node name="Shadow" parent="Visuals" index="1"]
-modulate = Color(0.101961, 0.101961, 0.101961, 0.588235)
-
 [node name="Sprite" parent="Visuals" index="2"]
 texture = ExtResource("2_tvi6w")

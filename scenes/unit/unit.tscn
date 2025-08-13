@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b08parf65pnyt"]
+[gd_scene load_steps=11 format=3 uid="uid://b08parf65pnyt"]
 
 [ext_resource type="Texture2D" uid="uid://devt2xbk78rej" path="res://assets/sprites/shadow.png" id="1_fvc8g"]
 [ext_resource type="Script" uid="uid://dvlyuwfk08kre" path="res://scenes/unit/unit.gd" id="1_vh40f"]
-[ext_resource type="Texture2D" uid="uid://cproxhccob85g" path="res://assets/sprites/Players/Player_1.png" id="2_vh40f"]
+[ext_resource type="PackedScene" uid="uid://bmqel4s1uyivt" path="res://scenes/components/hurtbox_component.tscn" id="3_vh40f"]
+[ext_resource type="PackedScene" uid="uid://w113jketquk6" path="res://scenes/components/health_component.tscn" id="4_bhlit"]
+[ext_resource type="PackedScene" uid="uid://co2mhlyaydbyy" path="res://scenes/ui/health_bar/health_bar.tscn" id="5_vgvef"]
 
 [sub_resource type="Animation" id="Animation_0wuuu"]
 length = 0.001
@@ -220,7 +222,7 @@ _data = {
 &"move": SubResource("Animation_vgvef")
 }
 
-[node name="Unit" type="Node2D"]
+[node name="Unit" type="Area2D"]
 script = ExtResource("1_vh40f")
 
 [node name="Visuals" type="Node2D" parent="."]
@@ -235,7 +237,6 @@ texture = ExtResource("1_fvc8g")
 [node name="Sprite" type="Sprite2D" parent="Visuals"]
 unique_name_in_owner = true
 position = Vector2(0, -61)
-texture = ExtResource("2_vh40f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
@@ -243,3 +244,23 @@ texture = ExtResource("2_vh40f")
 libraries = {
 &"": SubResource("AnimationLibrary_w7udy")
 }
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("3_vh40f")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_bhlit")]
+
+[node name="HealthBar" parent="." instance=ExtResource("5_vgvef")]
+offset_left = -46.0
+offset_top = -90.0
+offset_right = 50.0
+offset_bottom = -70.0
+back_color = Color(0.0156863, 0.054902, 0.168627, 1)
+fill_color = Color(0.372549, 0.537255, 0.756863, 1)
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="on_damaged" from="HurtboxComponent" to="." method="_on_hurtbox_component_on_damaged"]
+[connection signal="on_health_changed" from="HealthComponent" to="HealthBar" method="_on_health_component_on_health_changed"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]

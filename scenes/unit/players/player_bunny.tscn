@@ -7,8 +7,5 @@
 [node name="PlayerBunny" instance=ExtResource("1_tex7i")]
 stats = ExtResource("2_da4ie")
 
-[node name="Shadow" parent="Visuals" index="1"]
-modulate = Color(0.101961, 0.101961, 0.101961, 0.588235)
-
 [node name="Sprite" parent="Visuals" index="2"]
 texture = ExtResource("2_lbt10")

@@ -7,8 +7,5 @@
 [node name="PlayerCrazy" instance=ExtResource("1_5054k")]
 stats = ExtResource("2_e1phh")
 
-[node name="Shadow" parent="Visuals" index="1"]
-modulate = Color(0.101961, 0.101961, 0.101961, 0.588235)
-
 [node name="Sprite" parent="Visuals" index="2"]
 texture = ExtResource("2_ii53f")

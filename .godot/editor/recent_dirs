@@ -1,7 +1,15 @@
+res://effects
+res://scenes/ui/floating_text
+res://assets/font
+res://scenes/ui/health_bar
+res://scenes/components
+res://assets/sprites/Enemies
+res://resources/units/enemies
+res://scenes/unit/enemy
+res://assets/sprites/Players
+res://scenes/unit
 res://autoloads
 res://assets/sprites
 res://scenes/arena
-res://assets/sprites/Players
 res://resources/units/players
 res://scenes/unit/players
-res://scenes/unit

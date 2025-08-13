@@ -1,18 +1,24 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhj46crcrqjw6"]
+[gd_scene load_steps=10 format=3 uid="uid://dhj46crcrqjw6"]
 
 [ext_resource type="PackedScene" uid="uid://b08parf65pnyt" path="res://scenes/unit/unit.tscn" id="1_wkafa"]
 [ext_resource type="Script" uid="uid://ci4m1lta74ij3" path="res://scenes/unit/players/player.gd" id="2_etcc1"]
 [ext_resource type="Resource" uid="uid://232fevag55pv" path="res://resources/units/players/stats_player_well_rounded.tres" id="3_xa7el"]
 [ext_resource type="Script" uid="uid://da5vx11l2s5ro" path="res://scenes/unit/players/trail.gd" id="4_0kki1"]
+[ext_resource type="Texture2D" uid="uid://cproxhccob85g" path="res://assets/sprites/Players/Player_1.png" id="5_ht2l1"]
+[ext_resource type="Material" uid="uid://vs0n6lkgy04x" path="res://effects/flash_materia.tres" id="5_viu20"]
 
 [sub_resource type="Curve" id="Curve_ht2l1"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xa7el"]
-radius = 29.0
+radius = 4.47214
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ht2l1"]
+radius = 32.0
 
 [node name="PlayerWellRounded" instance=ExtResource("1_wkafa")]
+collision_mask = 2
 script = ExtResource("2_etcc1")
 dash_duration = 0.4
 dash_speed_multi = 2.7
@@ -34,8 +40,11 @@ z_index = 1
 
 [node name="Sprite" parent="Visuals" index="2"]
 z_index = 1
+material = ExtResource("5_viu20")
+texture = ExtResource("5_ht2l1")
 
 [node name="CollisionShape2D" parent="." index="1"]
+z_index = 1
 position = Vector2(0, -29)
 shape = SubResource("CircleShape2D_xa7el")
 
@@ -48,6 +57,15 @@ one_shot = true
 [node name="TrailTimer" type="Timer" parent="." index="5"]
 unique_name_in_owner = true
 one_shot = true
+
+[node name="HurtboxComponent" parent="." index="6"]
+collision_layer = 32
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+z_index = 1
+position = Vector2(0, -32)
+shape = SubResource("CircleShape2D_ht2l1")
 
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="TrailTimer" to="Visuals/Trail" method="_on_trail_timer_timeout"]
