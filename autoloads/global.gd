@@ -6,6 +6,13 @@ signal on_create_damage_text(unit: Node2D, hitbox: HitboxComponent)
 const FLASH_MATERIAL = preload("res://effects/flash_materia.tres")
 const FLOATING_TEXT_SCENE = preload("res://scenes/ui/floating_text/floating_text.tscn")
 
+enum UpgradeTier{
+	COMMON,
+	RARE,
+	EPIC,
+	LEGENDARY
+}
+
 var player: Player
 
 func get_chance_sucess(chance: float) -> bool:
