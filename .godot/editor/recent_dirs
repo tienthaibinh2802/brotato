@@ -1,6 +1,8 @@
 res://assets/sprites/Weapons/Melee
-res://scenes/weapons/melee
 res://scenes/weapons
+res://assets/sprites/Enemies
+res://assets/sprites/Players
+res://scenes/weapons/melee
 res://resources/items/weapons/melee/punch
 res://assets/sprites/Weapons/Icons
 res://effects
@@ -8,10 +10,8 @@ res://scenes/ui/floating_text
 res://assets/font
 res://scenes/ui/health_bar
 res://scenes/components
-res://assets/sprites/Enemies
 res://resources/units/enemies
 res://scenes/unit/enemy
-res://assets/sprites/Players
 res://scenes/unit
 res://autoloads
 res://assets/sprites
