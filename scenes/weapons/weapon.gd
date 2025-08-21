@@ -15,7 +15,7 @@ var weapon_spread: float
 
 func _ready() -> void:
 	atk_start_pos = sprite.position
-	
+
 
 func _process(delta: float) -> void:
 	if not is_attacking:
@@ -23,9 +23,11 @@ func _process(delta: float) -> void:
 			update_closest_target()
 		else:
 			closest_target = null
-	
+
 	rotate_to_target()
-	
+	update_visuals()
+
+
 	if can_use_weapon():
 		use_weapon()
 
@@ -33,7 +35,7 @@ func _process(delta: float) -> void:
 func setup_weapon(data: ItemWeapon) -> void:
 	self.data = data
 	collision.shape.radius = data.stats.max_range
-	
+
 
 func use_weapon() -> void:
 	calculate_spread()
@@ -52,7 +54,7 @@ func rotate_to_target() -> void:
 func get_custom_rotation_to_target() -> float:
 	if not closest_target or not is_instance_valid(closest_target):
 		return rotation
-		
+
 	var rot := global_position.direction_to(closest_target.global_position).angle()
 	return rot + weapon_spread
 
@@ -60,7 +62,7 @@ func get_custom_rotation_to_target() -> float:
 func get_rotation_to_target() -> float:
 	if targets.size() ==0:
 		return get_idle_rotation()
-	
+
 	var rot := global_position.direction_to(closest_target.global_position).angle()
 	return rot
 
@@ -71,10 +73,16 @@ func get_idle_rotation() -> float:
 	else:
 		return PI
 
+func update_visuals() -> void:
+	if abs(rotation) > PI / 2:
+		sprite.scale.y = -0.5
+	else:
+		sprite.scale.y = 0.5
+
 func calculate_spread() -> void:
 	weapon_spread += randf_range(-1 + data.stats.accuracy, 1 - data.stats.accuracy)
 	rotation += weapon_spread
-	
+
 
 func update_closest_target() -> void:
 	closest_target = get_closest_target()
@@ -82,18 +90,18 @@ func update_closest_target() -> void:
 func get_closest_target() -> Node2D:
 	if targets.size() == 0:
 		return
-		
+
 	var closest_enemy := targets[0]
 	var closest_distance := global_position.distance_to(closest_enemy.global_position)
-	
+
 	for i in range(1, targets.size()):
 		var target: Enemy = targets[i]
 		var distance := global_position.distance_to(target.global_position)
-		
+
 		if distance < closest_distance:
 			closest_enemy = target
 			closest_distance = distance
-			
+
 	return closest_enemy
 
 
@@ -108,4 +116,3 @@ func _on_range_area_area_exited(area: Area2D) -> void:
 	targets.erase(area)
 	if targets.size() == 0:
 		closest_target = null
-		
