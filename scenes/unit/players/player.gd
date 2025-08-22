@@ -28,6 +28,8 @@ func _ready() -> void:
 	add_weapon(preload("res://resources/items/weapons/range/revolver/item_revolver_1.tres"))
 
 func _process(delta: float) -> void:
+	if Global.game_paused: return
+	
 	move_dir = Input.get_vector("move_left", "move_right","move_up", "move_down")
 	
 	var current_velocity := move_dir * stats.speed

@@ -18,6 +18,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if Global.game_paused: return
+	
 	if not is_attacking:
 		if targets.size() > 0:
 			update_closest_target()

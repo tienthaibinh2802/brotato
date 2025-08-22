@@ -14,6 +14,8 @@ enum UpgradeTier{
 }
 
 var player: Player
+var game_paused := false
+
 
 func get_chance_sucess(chance: float) -> bool:
 	var random := randf_range(0, 1.0)

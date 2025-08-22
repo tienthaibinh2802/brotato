@@ -1,3 +1,8 @@
+res://scenes/ui/upgrade_panel
+res://Styles
+res://assets/sprites/Upgrades
+res://scenes/ui/upgrade_card
+res://scenes/ui/stats_container
 res://resources/waves/data
 res://scenes/projectiles
 res://assets/sprites/Projectiles
@@ -15,8 +20,3 @@ res://resources/items/weapons/melee/punch
 res://assets/sprites/Weapons/Icons
 res://effects
 res://scenes/ui/floating_text
-res://assets/font
-res://scenes/ui/health_bar
-res://scenes/components
-res://resources/units/enemies
-res://scenes/unit
