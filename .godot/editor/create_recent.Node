@@ -1,13 +1,13 @@
+Timer
+Button
 HBoxContainer
 Label
 VBoxContainer
 MarginContainer
 Panel
-Button
 TextureRect
 Control
 CanvasLayer
-Timer
 Node2D
 Marker2D
 AnimationPlayer

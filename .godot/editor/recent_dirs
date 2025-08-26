@@ -1,6 +1,8 @@
+res://scenes/ui/custom_button
+res://assets/sprites/Upgrades
+res://resources/items/upgrades/data
 res://scenes/ui/upgrade_panel
 res://Styles
-res://assets/sprites/Upgrades
 res://scenes/ui/upgrade_card
 res://scenes/ui/stats_container
 res://resources/waves/data
@@ -18,5 +20,3 @@ res://assets/sprites/Enemies
 res://assets/sprites/Players
 res://resources/items/weapons/melee/punch
 res://assets/sprites/Weapons/Icons
-res://effects
-res://scenes/ui/floating_text
