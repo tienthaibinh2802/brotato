@@ -5,14 +5,29 @@ signal on_create_damage_text(unit: Node2D, hitbox: HitboxComponent)
 signal on_create_heal_text(unit: Node2D, heal: float)
 
 signal on_upgrade_selected
+signal on_enemy_died(enemy: Enemy)
 
 const FLASH_MATERIAL = preload("res://effects/flash_materia.tres")
 const FLOATING_TEXT_SCENE = preload("res://scenes/ui/floating_text/floating_text.tscn")
+const COINS_SCENE = preload("res://scenes/coins/coins.tscn")
+const ITEM_CARD_SCENE = preload("res://scenes/ui/item_card/item_card.tscn")
+
+const COMMON_STYLE = preload("res://Styles/common_style.tres")
+const EPIC_STYLE = preload("res://Styles/epic_style.tres")
+const LEGENDARY_STYLE = preload("res://Styles/legendary_style.tres")
+const RARE_STYLE = preload("res://Styles/rare_style.tres")
+
 
 const UPGRADE_PROBABILITY_CONFIG = {
 	"rare": { "start_wave": 2, "base_multi": 0.06 },
 	"epic": { "start_wave": 4, "base_multi": 0.02 },
 	"legendary": { "start_wave": 7, "base_multi": 0.0023 },
+}
+
+const SHOP_PROBABILITY_CONFIG = {
+	"rare": { "start_wave": 2, "base_multi": 0.10 },
+	"epic": { "start_wave": 4, "base_multi": 0.06 },
+	"legendary": { "start_wave": 7, "base_multi": 0.01 },
 }
 
 enum UpgradeTier{
@@ -22,9 +37,14 @@ enum UpgradeTier{
 	LEGENDARY
 }
 
+var coins: int
 var player: Player
 var game_paused := false
 
+var equipped_weapons: Array[ItemWeapon]
+
+func get_harvesting_coins() -> void:
+	coins += player.stats.harvesting
 
 func get_chance_sucess(chance: float) -> bool:
 	var random := randf_range(0, 1.0)
@@ -32,6 +52,17 @@ func get_chance_sucess(chance: float) -> bool:
 		return true
 	return false
 	
+
+func get_tier_style(tier: UpgradeTier) -> StyleBoxFlat:
+	match tier:
+		UpgradeTier.COMMON:
+			return COMMON_STYLE
+		UpgradeTier.RARE:
+			return RARE_STYLE
+		UpgradeTier.EPIC:
+			return EPIC_STYLE
+		_:
+			return LEGENDARY_STYLE
 
 func calculate_tier_probability(current_wave: int, config: Dictionary) -> Array[float]:
 	var common_chance := 0.0
@@ -72,6 +103,44 @@ func calculate_tier_probability(current_wave: int, config: Dictionary) -> Array[
 		max(0.0, rare_chance),
 		max(0.0, epic_chance),
 		max(0.0, legendary_chance),
-		
 	]
+	
+func select_items_for_offer(item_pool: Array, current_wave: int, config: Dictionary) -> Array:
+	
+	# [0.7, 0.2, 0.08, 0.02]
+	var tier_chances := calculate_tier_probability(current_wave, config)
+	
+	var legendary_limit = tier_chances[3]
+	var epic_limit = legendary_limit + tier_chances[2]
+	var rare_limit = epic_limit + tier_chances[1]
+	
+	var offered_items: Array = []
+	while offered_items.size() < 4:
+		var roll := randf()
+		var chosen_tier_index := 0
+		if roll < legendary_limit:
+			chosen_tier_index = 3 # Legendary
+		elif roll < epic_limit:
+			chosen_tier_index = 2 #epic
+		elif roll < rare_limit:
+			chosen_tier_index = 1 #rare
+		
+		var potential_items: Array = []
+		var current_search_tier_index := chosen_tier_index
+		
+		while potential_items.is_empty() and current_search_tier_index >= 0:
+			potential_items = item_pool.filter(func(item: ItemBase): return item.item_tier == current_search_tier_index)
+			
+			if potential_items.is_empty():
+				current_search_tier_index -= 1
+			else:
+				break
+		
+		if not potential_items.is_empty():
+			var selected_item = potential_items.pick_random()
+			
+			if not offered_items.has(selected_item):
+				offered_items.append(selected_item)
+			
+	return offered_items
 	
