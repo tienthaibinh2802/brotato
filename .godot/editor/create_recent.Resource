@@ -1,3 +1,5 @@
+ItemPassive
+ItemBase
 ItemUpgrade
 WaveData
 WeaponStats

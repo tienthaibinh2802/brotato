@@ -1,3 +1,8 @@
+res://assets/sprites/Weapons/Melee
+res://shaders
+res://scenes/weapons
+res://assets/sprites/Upgrades
+res://resources/items/passives/data
 res://assets/sprites/Weapons/Icons
 res://scenes/ui/item_card
 res://scenes/unit/enemy
@@ -10,13 +15,8 @@ res://scenes/ui/shop_panel
 res://scenes/ui/shop_card
 res://Styles
 res://scenes/ui/custom_button
-res://assets/sprites/Upgrades
 res://resources/items/upgrades/data
 res://scenes/ui/upgrade_panel
 res://scenes/ui/upgrade_card
 res://scenes/ui/stats_container
 res://resources/waves/data
-res://scenes/projectiles
-res://assets/sprites/Projectiles
-res://scenes/arena
-res://scenes/weapons/range
