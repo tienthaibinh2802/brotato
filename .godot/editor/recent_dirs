@@ -1,3 +1,8 @@
+res://scenes/unit/players
+res://assets/sprites
+res://scenes/effects
+res://assets/sprites/Players
+res://scenes/ui/selection_panel
 res://assets/sprites/Weapons/Melee
 res://shaders
 res://scenes/weapons
@@ -6,7 +11,6 @@ res://resources/items/passives/data
 res://assets/sprites/Weapons/Icons
 res://scenes/ui/item_card
 res://scenes/unit/enemy
-res://assets/sprites
 res://scenes/coins
 res://scenes/ui/coins_bag
 res://scenes/ui
@@ -16,7 +20,3 @@ res://scenes/ui/shop_card
 res://Styles
 res://scenes/ui/custom_button
 res://resources/items/upgrades/data
-res://scenes/ui/upgrade_panel
-res://scenes/ui/upgrade_card
-res://scenes/ui/stats_container
-res://resources/waves/data
